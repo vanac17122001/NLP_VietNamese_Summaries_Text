@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - ROT 13 Translator</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css'>
+  <link rel="stylesheet">
+</head>
+<style>
+  .v-center {
+    display: flex;
+    align-items: center;
+  }
+</style>
+
+<body>
+  <div class="jumbotron text-center">
+    <h1>ROT 13 Transloator</h1>
+    <p>Demo tool for converting text to ROT13 and back again</p>
+  </div>
+  <p class="text-center">Enter text into the input field and click the 'Translate' button to translate</p>
+  <div class="container bg-light py-2">
+    <div class="row">
+      <div class="col-sm-5 text-center">
+        <h3>Input</h3>
+      </div>
+      <div class="col-sm-2 text-center">
+      </div>
+      <div class="col-sm-5 text-center">
+        <h3>Output</h3>
+      </div>
+    </div>
+    <form action="/" method="POST" target="_self">
+      <div class="row">
+        <div class="col-sm-5 text-center">
+          <textarea class="form-control" rows="10" cols="30" id="input" name="input">{{input_text}}</textarea>
+        </div>
+        <div class="col-sm-2 text-center v-center">
+          <input type="submit" value="Summary" style="color: rgb(253, 254, 255); background-color: #1b27a8;">
+        </div>
+        <div class="col-sm-5 text-center">
+          <textarea class="form-control" rows="10" cols="30" id="output" readonly>{{output_text}}</textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+<!-- partial -->
+<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script><script  src="./static/script.js"></script> -->
+
+</html>
