@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - ROT 13 Translator</title>
+  <title>summarytext</title>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css'>
   <link rel="stylesheet">
 </head>
 <style>
   .v-center {
-    display: flex;
     align-items: center;
+  }
+  .container {
+    max-width: 11400px;
+  }
+  .fileInput {
+    width: 40%;
+  }
+  .formFile {
+    margin-left :35%;
   }
 </style>
 
 <body>
   <div class="jumbotron text-center">
-    <h1>ROT 13 Transloator</h1>
-    <p>Demo tool for converting text to ROT13 and back again</p>
+    <h1>TÓM TẮT VĂN BẢN TIẾNG VIỆT</h1>
+    <p>Sử dụng Word2vec và thuật toán K-mean</p>
   </div>
-  <p class="text-center">Enter text into the input field and click the 'Translate' button to translate</p>
+  <p class="text-center">Enter text into the input field and click the 'Summary' button to summary text</p>
+  <div class="form-group formFile">
+    <form  enctype = "multipart/form-data" method="POST" >
+      <div class="fileInput" >
+          <input type="file" class="form-control" id="file" name ="file">
+        </div>
+    </form>
+  </div>
   <div class="container bg-light py-2">
     <div class="row">
       <div class="col-sm-5 text-center">
@@ -31,23 +45,88 @@
         <h3>Output</h3>
       </div>
     </div>
-    <form action="/" method="POST" target="_self">
-      <div class="row">
-        <div class="col-sm-5 text-center">
-          <textarea class="form-control" rows="10" cols="30" id="input" name="input">{{input_text}}</textarea>
-        </div>
-        <div class="col-sm-2 text-center v-center">
-          <input type="submit" value="Summary" style="color: rgb(253, 254, 255); background-color: #1b27a8;">
-        </div>
-        <div class="col-sm-5 text-center">
-          <textarea class="form-control" rows="10" cols="30" id="output" readonly>{{output_text}}</textarea>
-        </div>
-      </div>
-    </form>
-  </div>
-</body>
-<!-- partial -->
-<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script><script  src="./static/script.js"></script> -->
 
+    <div>
+      <form action="/" method="POST" target="_self" name="ModeltForm">
+        <div class="row" >
+          <div class="col-sm-5 text-center" >
+            <textarea class="form-control" rows="10" cols="35" id="input" name="input">{{input_text}}</textarea>
+          </div>
+          <div class="col-sm-2 text-center v-center" style="padding: 0;">
+            <input type="button" onclick="actionShowDeFault()" value="Default" style="margin-top: 30%;color: rgb(253, 254, 255); background-color: #1b27a8;">
+            <br>
+            <input type="button" onclick="actionShowCustom()" value="Custom" style="margin-top: 30%;color: rgb(253, 254, 255); background-color: #1b27a8;">
+          </div>
+          <div style="width: 40%" class="colt-sm-5 text-center" >
+            <textarea  class="form-control" rows="10" cols="35" id="output" name ="output" readonly>{{output_text}}</textarea>
+          </div>
+        </div>
+        <div id="inputForm" style="visibility: hidden ;">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Số câu đầu vào của đoạn văn</label>
+                <input type="text" class="form-control" id="numberinput" name = "numberinput" aria-describedby="emailHelp" placeholder="thông tin">
+                <small id="emailHelp" class="form-text text-muted">thông tin</small>
+              </div>
+              <div class="form-group">
+                  <label for="exampleFormControlSelect2">Chọn model</label>
+                  <select name="nameModel" class="custom-select" required>
+                    <option value="">Vui lòng chọn model</option>
+                    <option value="default">Default</option>
+                    <option value="1">skip-gram</option>
+                    <option value="0">CBOW</option>
+                  </select>
+                  <div class="invalid-feedback">Example invalid custom select feedback</div>
+                </div>
+              <div class="form-group">
+                  <label for="exampleFormControlSelect2">Chọn tham số K</label>
+                  <input type="text" name="K_Model" class="form-control" id="K_Model" placeholder="Tham số k">
+                  <div class="invalid-feedback">Example invalid custom select feedback</div>
+                </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="button" onclick="actionHidden()" class="btn btn-primary">Reset</button>
+        </div>
+      </form>
+      </div>
+  </div>
+
+<script>
+    var actionShowDeFault =function() {
+            document.getElementById('inputForm').style.visibility = 'visible';
+            document.ModeltForm.nameModel.value='default';
+            document.ModeltForm.K_Model.value='0';
+            sentences();
+        }
+    var actionShowCustom =function() {
+            document.getElementById('inputForm').style.visibility = 'visible';
+            sentences();
+        }
+    var actionHidden =function() {
+            document.getElementById('inputForm').style.visibility = 'hidden';
+            document.ModeltForm.nameModel.value='';
+            document.ModeltForm.K_Model.value='';
+            document.ModeltForm.input.value='';
+            document.ModeltForm.output.value='';
+            document.ModeltForm.numberinput.value= '';
+        }
+    var sentences= function(){
+      var senten = document.getElementById("input").value;
+      console.log(senten);
+      var arrSenten = senten.split('.');
+      document.ModeltForm.numberinput.value= arrSenten.length -1 ;
+    }
+
+      document.getElementById('file')
+            .addEventListener('change', function() {
+              
+            var fr=new FileReader();
+            fr.onload=function(){
+                document.getElementById('input')
+                        .textContent=fr.result;
+            }
+              
+            fr.readAsText(this.files[0]);
+        })
+    
+</script>
+</body>
 </html>
