@@ -1,1 +1,6 @@
 bert_score
+Flask
+rouge
+gensim
+pyvi
+nltk
