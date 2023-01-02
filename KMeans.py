@@ -10,11 +10,10 @@ def modelKMeans (input,typeModel,k):
     print(typeModel)
     import gensim 
     import gensim.models.keyedvectors as word2vec
-    w2v_model = word2vec.KeyedVectors.load('w2v.model')
+    w2v_model = word2vec.KeyedVectors.load('w2v_Cbow.model')
     if(typeModel =="1"):
-        w2v_model = word2vec.KeyedVectors.load('w2v.model')
+        w2v_model = word2vec.KeyedVectors.load('w2v_Skip.model')
         print("default skip gram :")
-    print("test")
     vocabulary = []
     for word in w2v_model.key_to_index.keys():
         vocabulary.append(word)

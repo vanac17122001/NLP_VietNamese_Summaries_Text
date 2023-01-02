@@ -32,12 +32,11 @@ def home_page():
 # API
 @app.route("/summary_text", methods=["POST"])
 def top_ratings():
-    input = request.json["original_text"]
+    content = request.json["original_text"]
     nameModel = request.json["nameModel"]
     k = request.json["k"]
-    # result = KMeans(input)
-    result = KMeans.modelKMeans(input,nameModel,int(k))
+                    # result = KMeans(input)
+    result = KMeans.modelKMeans(content,nameModel,int(k))
     return json.dumps(result)
-    
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0',port=8080)

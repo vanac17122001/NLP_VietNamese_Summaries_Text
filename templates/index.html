@@ -78,11 +78,11 @@
                   <div class="invalid-feedback">Example invalid custom select feedback</div>
                 </div>
               <div class="form-group">
-                  <label for="exampleFormControlSelect2">Chọn tham số K</label>
-                  <input type="text" name="K_Model" class="form-control" id="K_Model" placeholder="Tham số k">
+                  <label for="exampleFormControlSelect2">Số lượng câu</label>
+                  <input type="text" name="K_Model" class="form-control" id="K_Model" placeholder="Số lượng câu">
                   <div class="invalid-feedback">Example invalid custom select feedback</div>
                 </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" onclick="checkNumberSentences()"  class="btn btn-primary">Submit</button>
               <button type="button" onclick="actionHidden()" class="btn btn-primary">Reset</button>
         </div>
       </form>
@@ -93,7 +93,7 @@
     var actionShowDeFault =function() {
             document.getElementById('inputForm').style.visibility = 'visible';
             document.ModeltForm.nameModel.value='default';
-            document.ModeltForm.K_Model.value='0';
+            document.ModeltForm.K_Model.value='default';
             sentences();
         }
     var actionShowCustom =function() {
@@ -114,7 +114,15 @@
       var arrSenten = senten.split('.');
       document.ModeltForm.numberinput.value= arrSenten.length -1 ;
     }
-
+    var checkNumberSentences = function(){
+	var input = document.getElementById("numberinput").value;
+	var output = document.getElementById("K_Model").value;
+	console.log(input)
+	console.log(output)
+	if (Number(output) > Number(input)){
+		alert("Vui lòng nhập số lượng câu bé hơn " + input);
+		}
+	}
       document.getElementById('file')
             .addEventListener('change', function() {
               
