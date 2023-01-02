@@ -10,7 +10,7 @@ This project can help us summary Vietnamese text automatically. We use word2vec 
 #### 3. Run steps in train_w2v.ipynb file to train and build file w2v model file.
 
 #### 4. Run file main.py to start server.
-
+  - Note: ```Modify path to folder include model file```
 ### Web page interface
 Input
 <img src="images/giaodien.png"/>
